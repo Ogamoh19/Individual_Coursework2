@@ -188,14 +188,14 @@
             computed: {},
             methods: {
                 getAllCourses(){
-                    fetch(`http://localhost:3000/lessons`)
+                    fetch(`https://cstclass.herokuapp.com/lessons`)
                     .then(response => response.json())
                     .then(data => {
                         this.allCourses = data;
                     });
                 },
                 searchLessons(){
-                    fetch(`http://localhost:3000/search-lessons?keyword=${this.searchData}`)
+                    fetch(`https://cstclass.herokuapp.com/search-lessons?keyword=${this.searchData}`)
                         .then(response => response.json())
                         .then(data => {
                             this.allCourses = data;
@@ -318,7 +318,7 @@
                         method: "POST",
                         body: JSON.stringify( {cart: this.cart, user: user} ),
                     };
-                    fetch(`http://localhost:3000/collection/orders`, {
+                    fetch(`https://cstclass.herokuapp.com/orders`, {
                         mode: "cors",
                         cache: "no-store", 
                         body: user
