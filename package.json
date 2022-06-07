@@ -1,0 +1,16 @@
+{
+    "name": "web_work",
+    "version": "1.0.0",
+    "description": "idividual_coursework",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "mongodb": "^4.7.0",
+        "nodemon": "^2.0.16"
+    }
+}

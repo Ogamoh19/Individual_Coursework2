@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg7255" viewBox="0 0 64 64" version="1.1">
+  <title id="title2853">Education</title>
+  <defs id="defs7257">
+    <filter id="filter8458" y="-.13275" width="1.059" x="-.029517" height="1.2655">
+      <feGaussianBlur id="feGaussianBlur8460" stdDeviation="0.4438437"/>
+    </filter>
+    <linearGradient id="linearGradient9515" y2="36.364" gradientUnits="userSpaceOnUse" y1="26.545" x2="-2" x1="-12.364">
+      <stop id="stop8468" stop-color="#a40" offset="0"/>
+      <stop id="stop8470" stop-color="#a40" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient9526" x1="28.364" gradientUnits="userSpaceOnUse" y1="43.091" gradientTransform="matrix(1.0577 0 0 1.0546 -3.0015 .59272)" x2="26.545" y2="12.182">
+      <stop id="stop8410" stop-color="#4a0" offset="0"/>
+      <stop id="stop8412" stop-color="#4a0" stop-opacity="0" offset="1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient9529" x1="28.182" gradientUnits="userSpaceOnUse" y1="16.545" gradientTransform="matrix(1.0577 0 0 1.0546 -3.0015 .59272)" x2="28.545" y2="34.727">
+      <stop id="stop8420" stop-color="#338000" offset="0"/>
+      <stop id="stop8422" stop-color="#338000" stop-opacity="0" offset="1"/>
+    </linearGradient>
+  </defs>
+  <g id="layer1">
+    <g id="g9534">
+      <rect id="rect9452" rx="0" height="64" width="64" y="0" x="0" stroke-width="0" fill="#fff"/>
+      <rect id="rect8416" opacity=".69444" rx="4.3997" height="39.583" width="52.774" stroke="#e68f29" stroke-linecap="round" y="10.691" x="5.2266" stroke-width="3.9987" fill="url(#linearGradient9529)"/>
+      <rect id="rect7263" rx="4.3997" height="39.583" width="52.774" stroke="#533839" stroke-linecap="round" y="10.691" x="5.2266" stroke-width="3.9987" fill="url(#linearGradient9526)"/>
+      <g id="g8476" stroke="#423232" transform="matrix(.78575 0 0 .78291 56.549 -7.9756)" fill-rule="evenodd">
+        <path id="path8462" stroke-width="1px" fill="#e9ddaf" d="m-19.091 33.455l-0.909 13.272 10.727-6.727c-2.634-3.345-3.919-7.864-9.818-6.545z"/>
+        <path id="path8464" stroke-width="1px" fill="url(#linearGradient9515)" d="m-19.091 33.455l16.364-20.91c3.5285 1.522 7.0881 2.99 8.727 7.819l-14.727 20c-2.791-3.502-4.301-8.082-10.364-6.909z"/>
+        <path id="path8474" stroke-width=".42802px" fill="#24221c" d="m-19.805 40.293v5.448l4.591-2.88c-1.128-1.431-2.067-3.132-4.591-2.568z"/>
+      </g>
+      <path id="path9470" stroke="#423232" stroke-width="1px" fill="none" d="m45.5 18.5l11.636-15.636"/>
+      <path id="path9482" stroke="#423232" stroke-width="1px" fill="none" d="m47.864 20.909l11.636-15.636"/>
+      <text id="text8426" font-size="12.347px" font-family="courier" xml:space="preserve" transform="matrix(1.1924 0 0 1.6948 -14.431 -5.6692)" filter="url(#filter8458)" y="28.056114" x="20.444571" font-weight="bold" fill="#000000">
+        <tspan id="tspan8428" y="28.056114" x="20.444571">a b c</tspan>
+      </text>
+      <text id="text8404" font-size="17.552px" font-family="courier" xml:space="preserve" transform="scale(.83880 1.1922)" y="35.127995" x="12.260442" font-weight="bold" fill="#ffffff">
+        <tspan id="tspan8406" y="35.127995" x="12.260442">a b c</tspan>
+      </text>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>education</dc:title>
+        <dc:date>2010-04-02T20:09:55</dc:date>
+        <dc:description>Education</dc:description>
+        <dc:source>http://openclipart.org/detail/36181/education-by-netalloy</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>netalloy</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>abc</rdf:li>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>education</rdf:li>
+            <rdf:li>learning</rdf:li>
+            <rdf:li>school</rdf:li>
+            <rdf:li>study</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

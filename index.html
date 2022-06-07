@@ -1,0 +1,344 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>School Lessons</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<style>
+    [v-cloak]{
+        display: none;
+}
+    .heading{
+        color:  black;
+    }
+    .form-group label{
+        color: black;
+    }
+</style>
+
+<body class="bg-light">
+    <div id="app" v-cloak>
+        <header>
+            <nav class="navbar navbar-dark bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand"><strong class="heading">School Lessons</strong></a>
+                  <form class="d-flex">
+                    <input class="form-control me-2" type="search" v-model="searchData" v-on:input="searchLessons" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                  </form>
+                </div>
+              </nav>
+
+              <div class="bg-dark text-secondary px-4 py-5 text-center">
+                <div class="py-5">
+                  <h1 class="display-5 fw-bold text-white">Modale Academy</h1>
+                  <div class="col-lg-6 mx-auto">
+                    <p class="fs-5 mb-4">After school programs provide opportunities for students outside of the classroom
+                      An after school program isn’t just advantageous for children for some, they’re crucial.
+                      
+                    </p>
+                  </div>
+                </div> 
+              </div>
+
+        </header>
+        <div class="container">
+            <div class="row" v-if="!checkout">
+                <div class="col-1">
+                    <div class="form" style="margin-left: -50px; margin-top: 25px;">
+                        <div class="form-group mt-5">
+                            <select v-model="filter" class="form-control" v-on:change="sortCourse">
+                                <option value="subject">Subject</option>
+                                <option value="city">City</option>
+                                <option value="price">Price</option>
+                                <option value="availability">Availability</option>
+                            </select>
+                        </div>
+                        <hr>
+                        <div class="form-check">
+                            <input type="radio" v-model="sort" value="assending" id="assending" class="form-check-input" v-on:change="sortCourse">
+                            <label for="assending" class="form-check-label ml-3"><strong>Ascending</strong> </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" v-model="sort" value="descending" id="descending" class="form-check-input" v-on:change="sortCourse">
+                            <label for="descending" class="form-check-label ml-3"><strong>Descending</strong></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="row">
+                        <div
+                            class="col-12 d-flex justify-content-center mt-2"
+                            v-if="allCourses.length <= 0"
+                        >
+                            <div class="loader"></div>
+                        </div>
+                        
+                        <div class="col-4 mt-4" v-for="lesson in allCourses" :key="lesson.id">
+                            <div class="card">
+                                <div class="text-center">
+                                    <img v-bind:src="lesson.image" class="card-img-top" alt="logo" style="height: 150px; object-fit: cover;">
+                                </div>
+                                <div class="card-title text-center mt-1">
+                                    <strong>{{ lesson.name}}</strong>
+                                </div>
+                                <div class="card-body">
+                                    <strong>City: </strong>{{lesson.location}} <hr>
+                                    <strong>Price: </strong>${{lesson.price.GBP}} <hr>
+                                </div>
+                                
+                                <div class="card-footer d-flex justify-content-space-between">
+                                    <div class="col-6">
+                                        <button class="btn btn-dark" v-on:click="addToCart(lesson)" :disabled="lesson.spaces <= 0">Add to cart</button>
+                                    </div>
+                                    <div class="col-6 mt-1">
+                                        <strong> Space: {{lesson.spaces}} </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 mt-4">
+                   <button class="btn btn-dark" v-on:click="checkout=true" :disabled="cart.length <= 0">
+                       Cart ({{cart.length}})
+                       <span class="fas fa-cart-plus"></span>
+                    </button>
+                </div>
+            </div>
+            <!-- Checkout -->
+            <div v-if="checkout">
+                <button class="btn btn-dark" v-on:click="checkout = false">Home</button>
+                 <ul class="list-group mt-4">
+                    <div class="row">
+                        <div class="col-4" v-for="(subject, index) in cart" :key="subject.id">
+                            <div class="card" style="width: 18rem;">
+                                <div class="text-center">
+                                    <img class="card-img-top":src="subject.image" style="width: 150px; height: 150px;" alt="Card image cap">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{subject.name}}</h5>
+                                    <p class="card-text">{{subject.location}}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Quantity: {{subject.reserved}} </strong>
+                                        <button class="btn btn-md btn-dark" v-on:click="removeFromCart(subject)">Remove</i></button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </ul>
+                <div class="text-white mt-5">
+                    <form class="form" v-on:submit.prevent="buyCourse">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="name" v-model="name" class="form-control" id="name" v-on:input="validate">
+                            <div class="text-danger">{{check_order.name}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone: </label>
+                            <input type="number" v-model="phone" class="form-control" id="phone" v-on:input="validate">
+                            <div class="text-danger">{{check_order.phone}}</div>
+                        </div>
+                        <button type="submit" class="btn btn-dark" :disabled="!isValid">Checkout</button>
+                      </form>
+                </div>
+            </div>
+              
+            <!-- Modal -->
+        </div>
+    </div>
+
+    <!-- Bootstrap script -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Vue Script -->
+    <script>
+        var school_work = new Vue({
+            el: '#app',
+            data() {
+                return{
+                    projectName: 'Course work two individual',
+                    cart: [],
+                    allCourses: [],
+                    check_order: {
+                        phone: '',
+                        name: ''
+                    },
+                    filter: '',
+                    sort: '',
+                    checkout: false,
+                    searchData: '',
+                    name: '',
+                    phone: '',
+                    isValid: false,
+                }
+            },
+            mounted() {
+                this.getAllCourses();
+            },
+            computed: {},
+            methods: {
+                getAllCourses(){
+                    fetch(`http://localhost:3000/lessons`)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.allCourses = data;
+                    });
+                },
+                searchLessons(){
+                    fetch(`http://localhost:3000/search-lessons?keyword=${this.searchData}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            this.allCourses = data;
+                        }).catch(err => {
+                            console.log(err)
+                        })
+
+                },
+                addToCart(lesson){
+                    let exists = this.cart.includes(lesson)
+                    lesson.spaces -= 1;
+                    if (exists) {
+                        lesson.reserved += 1;
+                    }else{
+                        lesson.reserved += 1;
+                        this.cart.push(lesson)
+                    }
+                    // console.log(JSON.stringify(this.cart));
+                },
+                sortCourse() {
+                    if (this.sort == 'assending') {
+                            switch (this.filter) {
+                                case 'subject':
+                                        this.allCourses.sort((a, b) => (a.name > b.name) ? 1 : -1)
+                                    break;
+                                case 'city':
+                                        this.allCourses.sort((a, b) => (a.location > b.location) ? 1 : -1)
+                                    break;
+                                case 'price':
+                                        this.allCourses.sort((a, b) => (a.price.GBP > b.price.GBP) ? 1 : -1)
+                                    break;
+                                case 'availability':
+                                        this.allCourses.sort((a, b) => (a.spaces > b.spaces) ? -1 : 1)
+                                    break;
+                            
+                                default:
+                                    break;
+                            }
+                    }else if (this.sort == 'descending'){
+                            switch (this.filter) {
+                                case 'subject':
+                                    this.allCourses.reverse((a, b) => (a.name > b.name) ? 1 : -1)
+                                    break;
+                                case 'city':
+                                    this.allCourses.reverse((a, b) => (a.location > b.location) ? 1 : -1)
+                                    break;
+                                case 'price':
+                                    this.allCourses.reverse((a, b) => (a.price.GBP > b.price.GBP) ? 1 : -1)
+                                    break;
+                                case 'availability':
+                                    this.allCourses.reverse((a, b) => (a.spaces > b.spaces) ? -1 : 1)
+                                    break;
+                            
+                                default:
+                                    break;
+                        }
+                    }
+                },
+                removeFromCart(subject){
+                    console.log(subject)
+                    if (this.cart.includes(subject)) {
+                        subject.spaces += 1;
+                        
+                        if (subject.reserved > 0) {
+                            subject.reserved -= 1;
+                        }
+                        if (subject.reserved == 0) {
+                            this.cart = this.cart.filter(obj => {
+                                return obj.id != subject.id
+                            })
+                            console.log(subject)
+                        }
+                    }
+                },
+
+                validate(){
+                    if (this.name.length == 0) {
+                        this.check_order.name = "Name number is required.",
+                        this.isValid = false
+                    }
+                    else if (/[^a-zA-Z]/.test(this.name)) {
+                        this.check_order.name = "You must have enter a valid name."
+                        this.isValid = false
+                    }
+                    if (this.phone.length == 0) {
+                        this.check_order.phone = "Phone number is required."
+                        this.isValid = false
+                    }
+                    else if (this.phone.length < 10) {
+                        this.check_order.phone = "You must have enter 10 digits."
+                        this.isValid = false
+                    }
+                    
+                    else if (!/[^a-zA-Z]/.test(this.name) && this.phone.length == 10){
+                        this.isValid = true;
+                        this.check_order = {phone: '', name: ''}
+                    }
+                },
+                buyCourse(){
+                    if (this.name.length == 0) {
+                        this.check_order.name = "Name number is required."
+                        return;
+                    }
+                    else if (/[^a-zA-Z]/.test(this.name)) {
+                        this.check_order.name = "You must have enter a valid name."
+                        return;
+                    }
+                    if (this.phone.length == 0) {
+                        this.check_order.phone = "Phone number is required."
+                        return;
+                    }
+                    else if (this.phone.length < 10) {
+                        this.check_order.phone = "You must have enter 10 digits."
+                        return;
+                    }else{
+                        isValid = true;
+                    }
+                    let user = {full_name: this.name, phone: this.phone}
+                    const requestOptions = {
+                        method: "POST",
+                        body: JSON.stringify( {cart: this.cart, user: user} ),
+                    };
+                    fetch(`http://localhost:3000/collection/orders`, {
+                        mode: "cors",
+                        cache: "no-store", 
+                        body: user
+                    })
+                        .then(response => {response.json()})
+                        .then(data => {
+                            
+                            this.cart = [];
+                            this.check_order = {
+                                phone: '',
+                                name: ''
+                            }
+                         alert("Order submitted")
+                        }).catch(err => {
+                            console.log(err)
+                        })
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
