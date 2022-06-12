@@ -316,7 +316,7 @@
                     }
                     let user = {full_name: this.name, phone: this.phone}
                     const requestOptions = {
-                        method: "POST",
+                        method: "PUT",
                         body: JSON.stringify( {cart: this.cart, user: user} ),
                     };
                     fetch(`https://cstclass.herokuapp.com/order_info`, {
