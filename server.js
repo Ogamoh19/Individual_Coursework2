@@ -23,7 +23,7 @@ app.get('/lessons', logger, function (req, res) {
     })
 });
 
-app.post('/order_info', function (req, res) {
+app.post('/orders', function (req, res) {
   console.log(req.body)
   db.collection('order_info').insertOne(req.body, function (
     err,
