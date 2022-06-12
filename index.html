@@ -319,7 +319,7 @@
                         method: "POST",
                         body: JSON.stringify( {cart: this.cart, user: user} ),
                     };
-                    fetch(`https://cstclass.herokuapp.com/orders`, {
+                    fetch(`https://cstclass.herokuapp.com/order_info`, {
                         mode: "cors",
                         cache: "no-store", 
                         body: user
