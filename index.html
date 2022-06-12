@@ -146,7 +146,7 @@
                             <input type="number" v-model="phone" class="form-control" id="phone" v-on:input="validate">
                             <div class="text-danger">{{check_order.phone}}</div>
                         </div>
-                        <button type="submit" class="btn btn-dark" :disabled="!isValid">Checkout</button>
+                        <button type="submit" class="btn btn-dark" :disabled="successAlert || !isValid">Checkout</button>
                       </form>
                 </div>
             </div>
@@ -179,6 +179,7 @@
                     searchData: '',
                     name: '',
                     phone: '',
+                    successAlert: false,
                     isValid: false,
                 }
             },
@@ -315,30 +316,33 @@
                     }
                     let user = {full_name: this.name, phone: this.phone}
                     const requestOptions = {
-                        method: "POST",
+                        method: "PUT",
+                        headers: {"Content-Type": "application/json",'Accept': 'application/json' },
                         body: JSON.stringify( {cart: this.cart, user: user} ),
                     };
-                    fetch(`https://cstclass.herokuapp.com/orders`, {
-                        mode: "cors",
-                        cache: "no-store", 
-                        body: user
-                    })
-                        .then(response => {response.json()})
+                    fetch(`https://cstclass.herokuapp.com/orders`, requestOptions)
+                        .then(response => response.json())
                         .then(data => {
-                            
-                            this.cart = [];
-                            this.check_order = {
-                                phone: '',
-                                name: ''
-                            }
-                         alert("Order submitted")
-                        }).catch(err => {
-                            console.log(err)
-                        })
+                            $('#successModal').modal('show');
+                            console.log(this.cart);
+                            setTimeout(() => {
+                                this.successAlert = false;
+                                this.checkout = false;
+                                $('#successModal').modal('hide');
+                            }, 3000);
+                        });
+
+                    this.successAlert = true;
+                    this.cart = [];
+                    this.errors = {
+                        phone: '',
+                        name: ''
+                    }
                 },
             },
         });
     </script>
 </body>
+
 
 </html>
